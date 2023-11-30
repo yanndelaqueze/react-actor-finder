@@ -6,14 +6,15 @@
 
 .selector {
   margin-right: 10px;
-  border: solid;
-  border-width: thin;
-  border-radius: 50%;
   padding: 0px;
   font-size: 35px;
   cursor: pointer;
 }
 
+.selector .film {
+  margin-right: 10px;
+}
+
 .selector:hover {
-  background-color: grey;
+  color: #e1b34b;
 }

@@ -4,10 +4,17 @@ import { BASE_URL } from "../config";
 export class PersonAPI {
   static async fetchTrendingPeople() {
     try {
-      const response = await axios.get(
+      const res = await axios.get(
         `${BASE_URL}trending/person/week?api_key=${process.env.REACT_APP_API_KEY_PARAM}`
       );
-      return response.data.results;
+      const id = res.data.results[0].id;
+      console.log(id);
+
+      const response = await axios.get(
+        `${BASE_URL}person/${id}?api_key=${process.env.REACT_APP_API_KEY_PARAM}`
+      );
+      console.log(response);
+      return response.data;
     } catch (error) {
       alert("Error fetching Popular People");
     }

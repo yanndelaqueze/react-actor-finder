@@ -12,13 +12,10 @@ export function App() {
   const [currentRecord, setCurrentRecord] = useState();
   const [currentRecordType, setCurrentRecordType] = useState();
 
-  // setCurrentRecordType("person");
-  // setCurrentRecord();
-
   async function fetchTrendingPeople() {
     const populars = await PersonAPI.fetchTrendingPeople();
-    console.log(populars[0]);
-    setCurrentRecord(populars[0]);
+    console.log(populars);
+    setCurrentRecord(populars);
     setCurrentRecordType("person");
   }
 
@@ -51,7 +48,9 @@ export function App() {
           </div>
         </div>
         <div className={s.details}>
-          {currentRecord && currentRecordType === "person" && <PersonDetail />}
+          {currentRecord && currentRecordType === "person" && (
+            <PersonDetail record={currentRecord} />
+          )}
         </div>
         <div className={s.list}>LIST</div>
       </div>

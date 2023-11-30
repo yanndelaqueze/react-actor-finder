@@ -1,0 +1,17 @@
+.name {
+  font-weight: 400;
+  font-size: 35px;
+}
+
+.biography:hover {
+  overflow-y: auto;
+}
+
+.biography {
+  font-family: Inconsolata;
+  font-weight: 400;
+  font-size: 20px;
+  height: 120px;
+  overflow-y: hidden;
+  margin-top: 10px;
+}
