@@ -1,0 +1,19 @@
+.container {
+  padding: 3px;
+  display: flex;
+  margin-top: 10px;
+}
+
+.selector {
+  margin-right: 10px;
+  border: solid;
+  border-width: thin;
+  border-radius: 50%;
+  padding: 0px;
+  font-size: 35px;
+  cursor: pointer;
+}
+
+.selector:hover {
+  background-color: grey;
+}

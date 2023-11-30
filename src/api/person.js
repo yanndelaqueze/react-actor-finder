@@ -2,10 +2,10 @@ import axios from "axios";
 import { BASE_URL } from "../config";
 
 export class PersonAPI {
-  static async fetchPopulars() {
+  static async fetchTrendingPeople() {
     try {
       const response = await axios.get(
-        `${BASE_URL}people/popular?api_key=${process.env.REACT_APP_API_KEY_PARAM}`
+        `${BASE_URL}trending/person/week?api_key=${process.env.REACT_APP_API_KEY_PARAM}`
       );
       return response.data.results;
     } catch (error) {
