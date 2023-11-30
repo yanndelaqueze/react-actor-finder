@@ -26,7 +26,6 @@ export function App() {
 
   async function searchPerson(name) {
     const searchResponse = await PersonAPI.searchPersonByName(name);
-    console.log(searchResponse);
     if (searchResponse) {
       setCurrentRecord(searchResponse);
       setCurrentRecordType("person");
@@ -35,7 +34,6 @@ export function App() {
 
   async function searchMovie(title) {
     const searchResponse = await MovieAPI.searchMovieByTitle(title);
-    console.log(searchResponse);
     if (searchResponse) {
       setCurrentRecord(searchResponse);
       setCurrentRecordType("movie");
@@ -44,16 +42,29 @@ export function App() {
 
   async function searchTVShow(title) {
     const searchResponse = await TVShowAPI.searchTVShowByTitle(title);
-    console.log(searchResponse);
     if (searchResponse) {
       setCurrentRecord(searchResponse);
       setCurrentRecordType("tv-show");
     }
   }
 
+  async function getCredits(id) {
+    const searchResponse = await PersonAPI.fetchCreditsById(id);
+    console.log(searchResponse);
+    if (searchResponse) {
+      console.log("searchResponse");
+    }
+  }
+
   useEffect(() => {
     fetchTrendingPeople();
   }, []);
+
+  useEffect(() => {
+    if (currentRecord && currentRecordType === "person") {
+      getCredits(currentRecord.id);
+    }
+  }, [currentRecord, currentRecordType]);
 
   console.log(currentRecord);
   console.log(currentRecordType);

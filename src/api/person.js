@@ -33,4 +33,16 @@ export class PersonAPI {
       alert("Error searching Person");
     }
   }
+
+  static async fetchCreditsById(id) {
+    try {
+      const res = await axios.get(
+        `${BASE_URL}person/${id}/combined_credits?api_key=${process.env.REACT_APP_API_KEY_PARAM}`
+      );
+      console.log(res);
+      return res.data.cast;
+    } catch (error) {
+      alert("Error getting Credit");
+    }
+  }
 }
