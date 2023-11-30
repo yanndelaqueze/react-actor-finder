@@ -39,8 +39,9 @@ export class PersonAPI {
       const res = await axios.get(
         `${BASE_URL}person/${id}/combined_credits?api_key=${process.env.REACT_APP_API_KEY_PARAM}`
       );
-      console.log(res);
-      return res.data.cast;
+
+      const top30Credits = res.data.cast.slice(0, 30);
+      return top30Credits;
     } catch (error) {
       alert("Error getting Credit");
     }
