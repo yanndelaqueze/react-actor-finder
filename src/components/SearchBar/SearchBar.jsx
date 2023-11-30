@@ -5,20 +5,20 @@ import React, { useState } from "react";
 export function SearchBar({ searchType, onSubmit }) {
   const [inputValue, setInputValue] = useState("");
 
-  let placeHolderText = "Search an actor/actress";
+  let placeHolderText = "Search Actor/Actress";
 
   switch (searchType) {
     case "movie":
-      placeHolderText = "Search a Movie";
+      placeHolderText = "Search Movie";
       break;
     case "tv-show":
-      placeHolderText = "Search a TV Show";
+      placeHolderText = "Search TV Show";
       break;
     case "person":
-      placeHolderText = "Search an actor/actress";
+      placeHolderText = "Search Actor/Actress";
       break;
     default:
-      placeHolderText = "Search an actor/actress";
+      placeHolderText = "Search Actor/Actress";
       break;
   }
 
