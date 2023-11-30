@@ -3,10 +3,15 @@ import { useEffect, useState } from "react";
 // BOOTSTRAP ICONS
 
 import { PersonAPI } from "./api/person";
+import { MovieAPI } from "./api/movie";
+import { TVShowAPI } from "./api/tv-show";
+
 import { IMAGE_BASE_URL } from "./config";
 import { SearchSelector } from "./components/SearchSelector/SearchSelector";
 import { SearchBar } from "./components/SearchBar/SearchBar";
 import { PersonDetail } from "./components/PersonDetail/PersonDetail";
+import { MovieDetail } from "./components/MovieDetail/MovieDetail";
+import { TVShowDetail } from "./components/TVShowDetail/TVShowDetail";
 
 export function App() {
   const [currentRecord, setCurrentRecord] = useState();
@@ -28,6 +33,24 @@ export function App() {
     }
   }
 
+  async function searchMovie(title) {
+    const searchResponse = await MovieAPI.searchMovieByTitle(title);
+    console.log(searchResponse);
+    if (searchResponse) {
+      setCurrentRecord(searchResponse);
+      setCurrentRecordType("movie");
+    }
+  }
+
+  async function searchTVShow(title) {
+    const searchResponse = await TVShowAPI.searchTVShowByTitle(title);
+    console.log(searchResponse);
+    if (searchResponse) {
+      setCurrentRecord(searchResponse);
+      setCurrentRecordType("tv-show");
+    }
+  }
+
   useEffect(() => {
     fetchTrendingPeople();
   }, []);
@@ -35,15 +58,24 @@ export function App() {
   console.log(currentRecord);
   console.log(currentRecordType);
 
+  function getBackgroundImage() {
+    if (currentRecord && currentRecordType === "person") {
+      return `linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url("${IMAGE_BASE_URL}${currentRecord.profile_path}") no-repeat center / cover`;
+    } else if (currentRecord && currentRecordType === "movie") {
+      return `linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url("${IMAGE_BASE_URL}${currentRecord.backdrop_path}") no-repeat center / cover`;
+    } else if (currentRecord && currentRecordType === "tv-show") {
+      return `linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url("${IMAGE_BASE_URL}${currentRecord.backdrop_path}") no-repeat center / cover`;
+    } else {
+      return "black";
+    }
+  }
+
   return (
     <>
       <div
         className={s.main_container}
         style={{
-          background:
-            currentRecord && currentRecordType === "person"
-              ? `linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url("${IMAGE_BASE_URL}${currentRecord.profile_path}") no-repeat center / cover`
-              : "black",
+          background: getBackgroundImage(),
         }}
       >
         <div className={s.header}>
@@ -59,17 +91,39 @@ export function App() {
               />
             </div>
             <div className="col-md-12 col-lg-6">
-              <SearchBar
-                className="col-md-12 col-lg-6"
-                searchType={searchType}
-                onSubmit={searchPerson}
-              />
+              {searchType === "person" && (
+                <SearchBar
+                  className="col-md-12 col-lg-6"
+                  searchType={searchType}
+                  onSubmit={searchPerson}
+                />
+              )}
+              {searchType === "movie" && (
+                <SearchBar
+                  className="col-md-12 col-lg-6"
+                  searchType={searchType}
+                  onSubmit={searchMovie}
+                />
+              )}
+              {searchType === "tv-show" && (
+                <SearchBar
+                  className="col-md-12 col-lg-6"
+                  searchType={searchType}
+                  onSubmit={searchTVShow}
+                />
+              )}
             </div>
           </div>
         </div>
         <div className={s.details}>
           {currentRecord && currentRecordType === "person" && (
             <PersonDetail record={currentRecord} />
+          )}
+          {currentRecord && currentRecordType === "movie" && (
+            <MovieDetail record={currentRecord} />
+          )}
+          {currentRecord && currentRecordType === "tv-show" && (
+            <TVShowDetail record={currentRecord} />
           )}
         </div>
         <div className={s.list}>LIST</div>

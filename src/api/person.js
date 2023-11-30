@@ -30,7 +30,7 @@ export class PersonAPI {
       );
       return response.data;
     } catch (error) {
-      alert("Error searching Show");
+      alert("Error searching Person");
     }
   }
 }
