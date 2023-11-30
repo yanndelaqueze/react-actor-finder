@@ -44,6 +44,7 @@ export function SearchBar({ searchType, onSubmit }) {
         type="text"
         placeholder={placeHolderText}
         className={s.input}
+        autoFocus
       />
     </>
   );

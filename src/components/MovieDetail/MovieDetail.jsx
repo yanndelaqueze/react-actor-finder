@@ -6,6 +6,9 @@ export function MovieDetail({ record }) {
       <div className={s.head}>
         <div className={s.title}>{record.original_title}</div>
       </div>
+      <div className={s.release_date}>
+        ({record.release_date.substring(0, 4)})
+      </div>
       <div className={s.overview}>{record.overview}</div>
     </div>
   );

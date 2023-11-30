@@ -16,6 +16,12 @@
   overflow-y: auto;
 }
 
+.info {
+  font-family: Inconsolata;
+  font-weight: 400;
+  font-size: 20px;
+}
+
 .overview {
   font-family: Inconsolata;
   font-weight: 400;
