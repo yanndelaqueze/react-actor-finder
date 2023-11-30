@@ -12,6 +12,8 @@ import { SearchBar } from "./components/SearchBar/SearchBar";
 import { PersonDetail } from "./components/PersonDetail/PersonDetail";
 import { MovieDetail } from "./components/MovieDetail/MovieDetail";
 import { TVShowDetail } from "./components/TVShowDetail/TVShowDetail";
+import { Logo } from "./components/Logo/Logo";
+import logo from "./assets/images/logo.png";
 
 export function App() {
   const [currentRecord, setCurrentRecord] = useState();
@@ -92,7 +94,7 @@ export function App() {
         <div className={s.header}>
           <div className="row">
             <div className="col-4">
-              <span>LOGO HERE</span>
+              <Logo title="MovieDB" subtitle="..." image={logo} />
             </div>
             <div className="col-md-12 col-lg-2">
               <SearchSelector
