@@ -6,9 +6,9 @@
   font-size: 30px;
 }
 
-/* .list:hover {
+.list:hover {
   overflow-x: overlay;
-} */
+}
 
 .list {
   display: flex;
