@@ -18,7 +18,7 @@ export function CastListItem({ castMember, onClick }) {
       >
         <img className={s.img} src={getPhoto()} alt={castMember.name} />
         <div className={s.name}>{castMember.name}</div>
-        <div className={s.character}>as {castMember.character}</div>
+        <div className={s.character}>as: {castMember.character}</div>
       </div>
     </div>
   );

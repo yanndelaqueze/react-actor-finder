@@ -147,7 +147,8 @@ export function App() {
     }
   }, [currentRecord, currentRecordType]);
 
-  console.log(suggestions);
+  console.log("***", suggestions);
+  console.log("***", creditList);
 
   function getBackgroundImage() {
     if (currentRecord && currentRecordType === "person") {

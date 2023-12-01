@@ -31,3 +31,8 @@
   margin-top: -165px;
   margin-left: 275px;
 }
+
+.character {
+  font-family: inconsolata;
+  font-style: italic;
+}

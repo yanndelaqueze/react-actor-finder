@@ -44,15 +44,18 @@ export function CreditListItem({ credit, onClick }) {
   }
 
   return (
-    <div
-      onClick={() => onClick(credit.id, credit.media_type)}
-      className={s.container}
-    >
-      <img className={s.img} src={getImage()} alt={getTitle()} />
-      <div className={s.title}>
-        {getTitle()} ({getDate()})
+    <>
+      <div
+        onClick={() => onClick(credit.id, credit.media_type)}
+        className={s.container}
+      >
+        <img className={s.img} src={getImage()} alt={getTitle()} />
+        <div className={s.title}>
+          {getTitle()} ({getDate()})
+        </div>
+        <div className={s.logo}>{getLogo()}</div>
       </div>
-      <div className={s.logo}>{getLogo()}</div>
-    </div>
+      <div className={s.character}>as: {credit.character}</div>
+    </>
   );
 }
