@@ -54,15 +54,6 @@ export function App() {
     }
   }
 
-  // // SEARCH MOVIE OR TV
-  // async function searchMovieOrTVByTitle(title, searchType) {
-  //   const searchResponse = await MovieAndTVAPI.searchByTitle(title, searchType);
-  //   if (searchResponse) {
-  //     setCurrentRecord(searchResponse);
-  //     setCurrentRecordType(searchType);
-  //   }
-  // }
-
   async function getCredits(id) {
     const credits = await PersonAPI.fetchCreditsById(id);
     if (credits.length > 0) {
@@ -102,7 +93,7 @@ export function App() {
       if (tvShow) {
         console.log("tv Show clicked : ", tvShow);
         setCurrentRecord(tvShow);
-        setCurrentRecordType("movie");
+        setCurrentRecordType("tv");
       }
     }
   }
