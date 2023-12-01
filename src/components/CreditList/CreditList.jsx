@@ -1,7 +1,7 @@
 import s from "./style.module.css";
 import { CreditListItem } from "../CreditListItem/CreditListItem";
 
-export function CreditList({ creditList, currentRecord }) {
+export function CreditList({ creditList, currentRecord, onClickItem }) {
   function getGender() {
     if (currentRecord.gender === 1) {
       return "her";
@@ -17,7 +17,7 @@ export function CreditList({ creditList, currentRecord }) {
         {creditList.map((credit) => {
           return (
             <span key={credit.id} className={s.credit_list_item}>
-              <CreditListItem credit={credit} />
+              <CreditListItem credit={credit} onClick={onClickItem} />
             </span>
           );
         })}

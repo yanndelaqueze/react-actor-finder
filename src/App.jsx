@@ -78,6 +78,24 @@ export function App() {
     }
   }
 
+  async function getMovieById(id) {
+    const movie = await MovieAPI.getMovieById(id);
+    if (movie) {
+      console.log("movie clicked : ", movie);
+      setCurrentRecord(movie);
+      setCurrentRecordType("movie");
+    }
+  }
+
+  async function getPersonById(id) {
+    const person = await PersonAPI.getPersonById(id);
+    if (person) {
+      console.log("person clicked : ", person);
+      setCurrentRecord(person);
+      setCurrentRecordType("person");
+    }
+  }
+
   useEffect(() => {
     fetchTrendingPeople();
   }, []);
@@ -174,18 +192,24 @@ export function App() {
         </div>
         <div className={s.list}>
           {creditList && currentRecordType === "person" && (
-            <CreditList creditList={creditList} currentRecord={currentRecord} />
+            <CreditList
+              creditList={creditList}
+              currentRecord={currentRecord}
+              onClickItem={getMovieById}
+            />
           )}
           {creditList && currentRecordType === "movie" && (
             <CastList
               castList={castList}
               currentRecordType={currentRecordType}
+              onClickItem={getPersonById}
             />
           )}
           {creditList && currentRecordType === "tv" && (
             <CastList
               castList={castList}
               currentRecordType={currentRecordType}
+              onClickItem={getPersonById}
             />
           )}
         </div>

@@ -1,7 +1,7 @@
 import s from "./style.module.css";
 import { CastListItem } from "../CastListItem/CastListItem";
 
-export function CastList({ castList, currentRecordType }) {
+export function CastList({ castList, currentRecordType, onClickItem }) {
   function getRecordType() {
     if (currentRecordType === "movie") {
       return "movie";
@@ -19,7 +19,7 @@ export function CastList({ castList, currentRecordType }) {
         {castList.map((castMember) => {
           return (
             <span key={castMember.id} className={s.cast_member}>
-              <CastListItem castMember={castMember} />
+              <CastListItem castMember={castMember} onClick={onClickItem} />
             </span>
           );
         })}

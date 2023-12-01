@@ -34,6 +34,17 @@ export class PersonAPI {
     }
   }
 
+  static async getPersonById(id) {
+    try {
+      const res = await axios.get(
+        `${BASE_URL}person/${id}?api_key=${process.env.REACT_APP_API_KEY_PARAM}`
+      );
+      return res.data;
+    } catch (error) {
+      alert("Error getting Person");
+    }
+  }
+
   static async fetchCreditsById(id) {
     try {
       const res = await axios.get(

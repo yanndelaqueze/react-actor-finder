@@ -2,7 +2,7 @@ import s from "./style.module.css";
 import { SMALL_IMAGE_BASE_URL } from "../../config";
 import no_photo from "../../assets/images/no-photo.png";
 
-export function CastListItem({ castMember }) {
+export function CastListItem({ castMember, onClick }) {
   function getPhoto() {
     if (castMember.profile_path) {
       return SMALL_IMAGE_BASE_URL + castMember.profile_path;
@@ -12,7 +12,7 @@ export function CastListItem({ castMember }) {
   }
   return (
     <div>
-      <div className={s.container}>
+      <div onClick={() => onClick(castMember.id)} className={s.container}>
         <img className={s.img} src={getPhoto()} alt={castMember.name} />
         <div className={s.name}>{castMember.name}</div>
         <div className={s.character}>as {castMember.character}</div>
