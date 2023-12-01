@@ -12,6 +12,7 @@ import { SearchBar } from "./components/SearchBar/SearchBar";
 import { PersonDetail } from "./components/PersonDetail/PersonDetail";
 import { MovieDetail } from "./components/MovieDetail/MovieDetail";
 import { TVShowDetail } from "./components/TVShowDetail/TVShowDetail";
+import { CreditList } from "./components/CreditList/CreditList";
 import { Logo } from "./components/Logo/Logo";
 import logo from "./assets/images/logo.png";
 
@@ -19,6 +20,7 @@ export function App() {
   const [currentRecord, setCurrentRecord] = useState();
   const [currentRecordType, setCurrentRecordType] = useState();
   const [searchType, setSearchType] = useState("person");
+  const [creditList, setCreditList] = useState([]);
 
   async function fetchTrendingPeople() {
     const trending = await PersonAPI.fetchTrendingPeople();
@@ -139,7 +141,12 @@ export function App() {
             <TVShowDetail record={currentRecord} />
           )}
         </div>
-        <div className={s.list}>LIST</div>
+        <div className={s.list}>
+          LIST GOES HERE
+          {creditList && currentRecordType === "person" && (
+            <CreditList creditList={creditList} />
+          )}
+        </div>
       </div>
     </>
   );
