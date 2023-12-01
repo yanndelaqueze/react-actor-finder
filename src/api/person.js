@@ -18,6 +18,18 @@ export class PersonAPI {
     }
   }
 
+  static async getPersonSuggestions(input) {
+    try {
+      const res = await axios.get(
+        `${BASE_URL}search/person?api_key=${process.env.REACT_APP_API_KEY_PARAM}&query=${input}`
+      );
+
+      return res.data.results.slice(0, 10);
+    } catch (error) {
+      alert("Error searching Person");
+    }
+  }
+
   static async searchPersonByName(name) {
     try {
       const res = await axios.get(

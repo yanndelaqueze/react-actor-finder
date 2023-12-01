@@ -23,6 +23,7 @@ export function App() {
   const [searchType, setSearchType] = useState("person");
   const [creditList, setCreditList] = useState([]);
   const [castList, setCastList] = useState([]);
+  const [suggestions, setSuggestions] = useState([]);
 
   async function fetchTrendingPeople() {
     const trending = await PersonAPI.fetchTrendingPeople();
@@ -30,8 +31,11 @@ export function App() {
     setCurrentRecordType("person");
   }
 
-  async function getSuggestions(input) {
-    console.log(input);
+  async function getPersonSuggestions(input) {
+    const suggestions = await PersonAPI.getPersonSuggestions(input);
+    if (suggestions.length > 0) {
+      setSuggestions(suggestions);
+    }
   }
 
   async function searchPerson(name) {
@@ -61,7 +65,6 @@ export function App() {
   async function getCredits(id) {
     const credits = await PersonAPI.fetchCreditsById(id);
     if (credits.length > 0) {
-      console.log("credits : ", credits);
       setCreditList(credits);
     }
   }
@@ -69,7 +72,6 @@ export function App() {
   async function getMovieCast(id) {
     const cast = await MovieAPI.fetchCastById(id);
     if (cast.length > 0) {
-      console.log("cast : ", cast);
       setCastList(cast);
     }
   }
@@ -77,7 +79,6 @@ export function App() {
   async function getTVShowCast(id) {
     const cast = await TVAPI.fetchCastById(id);
     if (cast.length > 0) {
-      console.log("cast : ", cast);
       setCastList(cast);
     }
   }
@@ -87,7 +88,6 @@ export function App() {
     if (type === "movie") {
       const movie = await MovieAPI.getMovieById(id);
       if (movie) {
-        console.log("movie clicked : ", movie);
         setCurrentRecord(movie);
         setCurrentRecordType("movie");
       }
@@ -95,7 +95,6 @@ export function App() {
     if (type === "tv") {
       const tvShow = await TVAPI.getTVShowById(id);
       if (tvShow) {
-        console.log("tv Show clicked : ", tvShow);
         setCurrentRecord(tvShow);
         setCurrentRecordType("tv");
       }
@@ -133,6 +132,8 @@ export function App() {
       getTVShowCast(currentRecord.id);
     }
   }, [currentRecord, currentRecordType]);
+
+  console.log(suggestions);
 
   function getBackgroundImage() {
     if (currentRecord && currentRecordType === "person") {
@@ -176,7 +177,7 @@ export function App() {
                   className="col-md-12 col-lg-6"
                   searchType={searchType}
                   onSubmit={searchPerson}
-                  onInput={getSuggestions}
+                  onInput={getPersonSuggestions}
                 />
               )}
               {searchType === "movie" && (
