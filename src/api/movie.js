@@ -17,4 +17,17 @@ export class MovieAPI {
       alert("Error searching Movie");
     }
   }
+
+  static async fetchCastById(id) {
+    try {
+      const res = await axios.get(
+        `${BASE_URL}movie/${id}/credits?api_key=${process.env.REACT_APP_API_KEY_PARAM}`
+      );
+
+      const top20Cast = res.data.cast.slice(0, 20);
+      return top20Cast;
+    } catch (error) {
+      alert("Error getting Credit");
+    }
+  }
 }

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { BASE_URL } from "../config";
 
-export class TVShowAPI {
+export class TVAPI {
   static async searchTVShowByTitle(title) {
     try {
       const res = await axios.get(

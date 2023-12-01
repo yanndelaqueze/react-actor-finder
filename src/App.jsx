@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 import { PersonAPI } from "./api/person";
 import { MovieAPI } from "./api/movie";
-import { TVShowAPI } from "./api/tv-show";
+import { TVAPI } from "./api/tv";
 
 import { IMAGE_BASE_URL } from "./config";
 import { SearchSelector } from "./components/SearchSelector/SearchSelector";
@@ -13,6 +13,7 @@ import { PersonDetail } from "./components/PersonDetail/PersonDetail";
 import { MovieDetail } from "./components/MovieDetail/MovieDetail";
 import { TVShowDetail } from "./components/TVShowDetail/TVShowDetail";
 import { CreditList } from "./components/CreditList/CreditList";
+import { CastList } from "./components/CastList/CastList";
 import { Logo } from "./components/Logo/Logo";
 import logo from "./assets/images/logo.png";
 
@@ -21,6 +22,7 @@ export function App() {
   const [currentRecordType, setCurrentRecordType] = useState();
   const [searchType, setSearchType] = useState("person");
   const [creditList, setCreditList] = useState([]);
+  const [castList, setCastList] = useState([]);
 
   async function fetchTrendingPeople() {
     const trending = await PersonAPI.fetchTrendingPeople();
@@ -45,18 +47,26 @@ export function App() {
   }
 
   async function searchTVShow(title) {
-    const searchResponse = await TVShowAPI.searchTVShowByTitle(title);
+    const searchResponse = await TVAPI.searchTVShowByTitle(title);
     if (searchResponse) {
       setCurrentRecord(searchResponse);
-      setCurrentRecordType("tv-show");
+      setCurrentRecordType("tv");
     }
   }
 
   async function getCredits(id) {
-    const searchResponse = await PersonAPI.fetchCreditsById(id);
-    console.log(searchResponse);
-    if (searchResponse) {
-      console.log("searchResponse");
+    const credits = await PersonAPI.fetchCreditsById(id);
+    if (credits.length > 0) {
+      console.log("credits : ", credits);
+      setCreditList(credits);
+    }
+  }
+
+  async function getMovieCast(id) {
+    const cast = await MovieAPI.fetchCastById(id);
+    if (cast.length > 0) {
+      console.log("cast : ", cast);
+      setCastList(cast);
     }
   }
 
@@ -70,15 +80,18 @@ export function App() {
     }
   }, [currentRecord, currentRecordType]);
 
-  console.log(currentRecord);
-  console.log(currentRecordType);
+  useEffect(() => {
+    if (currentRecord && currentRecordType === "movie") {
+      getMovieCast(currentRecord.id);
+    }
+  }, [currentRecord, currentRecordType]);
 
   function getBackgroundImage() {
     if (currentRecord && currentRecordType === "person") {
       return `linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url("${IMAGE_BASE_URL}${currentRecord.profile_path}") no-repeat center / cover`;
     } else if (currentRecord && currentRecordType === "movie") {
       return `linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url("${IMAGE_BASE_URL}${currentRecord.backdrop_path}") no-repeat center / cover`;
-    } else if (currentRecord && currentRecordType === "tv-show") {
+    } else if (currentRecord && currentRecordType === "tv") {
       return `linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url("${IMAGE_BASE_URL}${currentRecord.backdrop_path}") no-repeat center / cover`;
     } else {
       return "black";
@@ -96,7 +109,11 @@ export function App() {
         <div className={s.header}>
           <div className="row">
             <div className="col-4">
-              <Logo title="MovieDB" subtitle="..." image={logo} />
+              <Logo
+                title="ActorFindr"
+                subtitle="This face looks familiar..."
+                image={logo}
+              />
             </div>
             <div className="col-md-12 col-lg-2">
               <SearchSelector
@@ -120,7 +137,7 @@ export function App() {
                   onSubmit={searchMovie}
                 />
               )}
-              {searchType === "tv-show" && (
+              {searchType === "tv" && (
                 <SearchBar
                   className="col-md-12 col-lg-6"
                   searchType={searchType}
@@ -137,14 +154,16 @@ export function App() {
           {currentRecord && currentRecordType === "movie" && (
             <MovieDetail record={currentRecord} />
           )}
-          {currentRecord && currentRecordType === "tv-show" && (
+          {currentRecord && currentRecordType === "tv" && (
             <TVShowDetail record={currentRecord} />
           )}
         </div>
         <div className={s.list}>
-          LIST GOES HERE
           {creditList && currentRecordType === "person" && (
-            <CreditList creditList={creditList} />
+            <CreditList creditList={creditList} currentRecord={currentRecord} />
+          )}
+          {creditList && currentRecordType === "movie" && (
+            <CastList castList={castList} currentRecord={currentRecord} />
           )}
         </div>
       </div>
