@@ -12,7 +12,7 @@ export function CreditList({ creditList, currentRecord, onClickItem }) {
 
   return (
     <>
-      <div className={s.title}>You have seen {getGender()} in</div>
+      <div className={s.title}>You may have seen {getGender()} in</div>
       <div className={s.list}>
         {creditList.map((credit) => {
           return (

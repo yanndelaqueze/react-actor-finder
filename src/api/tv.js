@@ -18,6 +18,17 @@ export class TVAPI {
     }
   }
 
+  static async getTVShowById(id) {
+    try {
+      const res = await axios.get(
+        `${BASE_URL}tv/${id}?api_key=${process.env.REACT_APP_API_KEY_PARAM}`
+      );
+      return res.data;
+    } catch (error) {
+      alert("Error searching Movie");
+    }
+  }
+
   static async fetchCastById(id) {
     try {
       const res = await axios.get(

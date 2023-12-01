@@ -54,6 +54,15 @@ export function App() {
     }
   }
 
+  // // SEARCH MOVIE OR TV
+  // async function searchMovieOrTVByTitle(title, searchType) {
+  //   const searchResponse = await MovieAndTVAPI.searchByTitle(title, searchType);
+  //   if (searchResponse) {
+  //     setCurrentRecord(searchResponse);
+  //     setCurrentRecordType(searchType);
+  //   }
+  // }
+
   async function getCredits(id) {
     const credits = await PersonAPI.fetchCreditsById(id);
     if (credits.length > 0) {
@@ -78,16 +87,28 @@ export function App() {
     }
   }
 
-  async function getMovieById(id) {
-    const movie = await MovieAPI.getMovieById(id);
-    if (movie) {
-      console.log("movie clicked : ", movie);
-      setCurrentRecord(movie);
-      setCurrentRecordType("movie");
+  async function getMovieOrTVShowById(id, type) {
+    console.log(id, type);
+    if (type === "movie") {
+      const movie = await MovieAPI.getMovieById(id);
+      if (movie) {
+        console.log("movie clicked : ", movie);
+        setCurrentRecord(movie);
+        setCurrentRecordType("movie");
+      }
+    }
+    if (type === "tv") {
+      const tvShow = await TVAPI.getTVShowById(id);
+      if (tvShow) {
+        console.log("tv Show clicked : ", tvShow);
+        setCurrentRecord(tvShow);
+        setCurrentRecordType("movie");
+      }
     }
   }
 
   async function getPersonById(id) {
+    console.log(id);
     const person = await PersonAPI.getPersonById(id);
     if (person) {
       console.log("person clicked : ", person);
@@ -195,7 +216,7 @@ export function App() {
             <CreditList
               creditList={creditList}
               currentRecord={currentRecord}
-              onClickItem={getMovieById}
+              onClickItem={getMovieOrTVShowById}
             />
           )}
           {creditList && currentRecordType === "movie" && (
