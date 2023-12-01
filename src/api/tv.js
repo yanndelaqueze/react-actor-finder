@@ -2,6 +2,18 @@ import axios from "axios";
 import { BASE_URL } from "../config";
 
 export class TVAPI {
+  static async getTVShowSuggestions(input) {
+    try {
+      const res = await axios.get(
+        `${BASE_URL}search/tv?api_key=${process.env.REACT_APP_API_KEY_PARAM}&query=${input}`
+      );
+
+      return res.data.results.slice(0, 10);
+    } catch (error) {
+      alert("Error searching TV Show");
+    }
+  }
+
   static async searchTVShowByTitle(title) {
     try {
       const res = await axios.get(

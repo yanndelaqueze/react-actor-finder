@@ -46,11 +46,25 @@ export function App() {
     }
   }
 
+  async function getMovieSuggestions(input) {
+    const suggestions = await MovieAPI.getMovieSuggestions(input);
+    if (suggestions.length > 0) {
+      setSuggestions(suggestions);
+    }
+  }
+
   async function searchMovie(title) {
     const searchResponse = await MovieAPI.searchMovieByTitle(title);
     if (searchResponse) {
       setCurrentRecord(searchResponse);
       setCurrentRecordType("movie");
+    }
+  }
+
+  async function getTVShowSuggestions(input) {
+    const suggestions = await TVAPI.getTVShowSuggestions(input);
+    if (suggestions.length > 0) {
+      setSuggestions(suggestions);
     }
   }
 
@@ -185,6 +199,7 @@ export function App() {
                   className="col-md-12 col-lg-6"
                   searchType={searchType}
                   onSubmit={searchMovie}
+                  onInput={getMovieSuggestions}
                 />
               )}
               {searchType === "tv" && (
@@ -192,6 +207,7 @@ export function App() {
                   className="col-md-12 col-lg-6"
                   searchType={searchType}
                   onSubmit={searchTVShow}
+                  onInput={getTVShowSuggestions}
                 />
               )}
             </div>

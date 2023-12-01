@@ -2,6 +2,18 @@ import axios from "axios";
 import { BASE_URL } from "../config";
 
 export class MovieAPI {
+  static async getMovieSuggestions(input) {
+    try {
+      const res = await axios.get(
+        `${BASE_URL}search/movie?api_key=${process.env.REACT_APP_API_KEY_PARAM}&query=${input}`
+      );
+
+      return res.data.results.slice(0, 10);
+    } catch (error) {
+      alert("Error searching Movie");
+    }
+  }
+
   static async searchMovieByTitle(title) {
     try {
       const res = await axios.get(
