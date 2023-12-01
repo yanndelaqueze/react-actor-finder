@@ -2,7 +2,7 @@ import s from "./style.module.css";
 import { Search as SearchIcon } from "react-bootstrap-icons";
 import React, { useState } from "react";
 
-export function SearchBar({ searchType, onSubmit }) {
+export function SearchBar({ searchType, onSubmit, onInput }) {
   const [inputValue, setInputValue] = useState("");
 
   let placeHolderText = "Search Actor/Actress";
@@ -30,8 +30,9 @@ export function SearchBar({ searchType, onSubmit }) {
     }
   }
 
-  function onChange(e) {
+  function getInput(e) {
     setInputValue(e.target.value);
+    onInput(e.target.value);
   }
 
   return (
@@ -40,7 +41,7 @@ export function SearchBar({ searchType, onSubmit }) {
       <input
         onKeyUp={submit}
         value={inputValue}
-        onChange={onChange}
+        onChange={getInput}
         type="text"
         placeholder={placeHolderText}
         className={s.input}

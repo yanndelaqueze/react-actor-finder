@@ -30,6 +30,10 @@ export function App() {
     setCurrentRecordType("person");
   }
 
+  async function getSuggestions(input) {
+    console.log(input);
+  }
+
   async function searchPerson(name) {
     const searchResponse = await PersonAPI.searchPersonByName(name);
     if (searchResponse) {
@@ -172,6 +176,7 @@ export function App() {
                   className="col-md-12 col-lg-6"
                   searchType={searchType}
                   onSubmit={searchPerson}
+                  onInput={getSuggestions}
                 />
               )}
               {searchType === "movie" && (
