@@ -11,7 +11,7 @@ export function SearchBar({ searchType, onSubmit }) {
     case "movie":
       placeHolderText = "Search Movie";
       break;
-    case "tv-show":
+    case "tv":
       placeHolderText = "Search TV Show";
       break;
     case "person":

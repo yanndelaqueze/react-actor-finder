@@ -70,6 +70,14 @@ export function App() {
     }
   }
 
+  async function getTVShowCast(id) {
+    const cast = await TVAPI.fetchCastById(id);
+    if (cast.length > 0) {
+      console.log("cast : ", cast);
+      setCastList(cast);
+    }
+  }
+
   useEffect(() => {
     fetchTrendingPeople();
   }, []);
@@ -83,6 +91,12 @@ export function App() {
   useEffect(() => {
     if (currentRecord && currentRecordType === "movie") {
       getMovieCast(currentRecord.id);
+    }
+  }, [currentRecord, currentRecordType]);
+
+  useEffect(() => {
+    if (currentRecord && currentRecordType === "tv") {
+      getTVShowCast(currentRecord.id);
     }
   }, [currentRecord, currentRecordType]);
 
@@ -163,7 +177,16 @@ export function App() {
             <CreditList creditList={creditList} currentRecord={currentRecord} />
           )}
           {creditList && currentRecordType === "movie" && (
-            <CastList castList={castList} currentRecord={currentRecord} />
+            <CastList
+              castList={castList}
+              currentRecordType={currentRecordType}
+            />
+          )}
+          {creditList && currentRecordType === "tv" && (
+            <CastList
+              castList={castList}
+              currentRecordType={currentRecordType}
+            />
           )}
         </div>
       </div>

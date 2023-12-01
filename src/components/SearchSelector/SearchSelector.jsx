@@ -12,8 +12,8 @@ export function SearchSelector({ onClickItem, searchType }) {
         />
         <Tv
           className={s.selector}
-          onClick={() => onClickItem("tv-show")}
-          style={{ color: searchType === "tv-show" ? "#e1b34b" : "inherit" }}
+          onClick={() => onClickItem("tv")}
+          style={{ color: searchType === "tv" ? "#e1b34b" : "inherit" }}
         />
         <Person
           className={s.selector}
