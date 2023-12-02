@@ -23,7 +23,8 @@ export class PersonAPI {
       const res = await axios.get(
         `${BASE_URL}search/person?api_key=${process.env.REACT_APP_API_KEY_PARAM}&query=${input}`
       );
-
+      console.log("input:", input);
+      console.log("res:", res.data.results);
       return res.data.results.slice(0, 10);
     } catch (error) {
       alert("Error searching Person");

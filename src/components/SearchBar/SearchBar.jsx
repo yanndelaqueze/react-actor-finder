@@ -31,6 +31,7 @@ export function SearchBar({ searchType, onSubmit, onInput }) {
   }
 
   function getInput(e) {
+    console.log(e.target.value);
     setInputValue(e.target.value);
     onInput(e.target.value);
   }
