@@ -14,6 +14,7 @@ import { MovieDetail } from "./components/MovieDetail/MovieDetail";
 import { TVShowDetail } from "./components/TVShowDetail/TVShowDetail";
 import { CreditList } from "./components/CreditList/CreditList";
 import { CastList } from "./components/CastList/CastList";
+import { SuggestionList } from "./components/SuggestionList/SuggestionList";
 import { Logo } from "./components/Logo/Logo";
 import logo from "./assets/images/logo.png";
 
@@ -196,15 +197,21 @@ export function App() {
                 searchType={searchType}
               />
             </div>
+
             <div className="col-md-12 col-lg-6">
-              {searchType === "person" && (
-                <SearchBar
-                  className="col-md-12 col-lg-6"
-                  searchType={searchType}
-                  onSubmit={searchPerson}
-                  onInput={getPersonSuggestions}
-                />
-              )}
+              <div className={s.search}>
+                {searchType === "person" && (
+                  <SearchBar
+                    className="col-md-12 col-lg-6"
+                    searchType={searchType}
+                    onSubmit={searchPerson}
+                    onInput={getPersonSuggestions}
+                  />
+                )}
+                {suggestions.length > 0 && (
+                  <SuggestionList suggestionList={suggestions} />
+                )}
+              </div>
               {searchType === "movie" && (
                 <SearchBar
                   className="col-md-12 col-lg-6"
