@@ -43,6 +43,7 @@ export function MovieDetail({ record }) {
       {director && (
         <>
           <p> Directed by : </p>
+
           <div className={s.director}>
             <img
               className={s.director_photo}
