@@ -3,24 +3,36 @@
   font-size: 35px;
   margin-top: 60px;
 }
-/*
-.rating_container {
-  display: flex;
-}
-
-.rating {
-  margin-top: 3px;
-  margin-left: 5px;
-} */
 
 .overview:hover {
   overflow-y: auto;
 }
 
 .info {
-  font-family: Inconsolata;
+  font-family: Karla;
   font-weight: 400;
-  font-size: 20px;
+  font-size: 15px;
+}
+
+.director {
+  font-family: Karla;
+  font-weight: 400;
+  font-size: 15px;
+  cursor: pointer;
+  width: 300px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.director_photo {
+  height: 80px;
+  border-radius: 50%;
+  width: 80px;
+  object-fit: cover;
+  background-color: grey;
 }
 
 .overview {

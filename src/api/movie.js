@@ -53,4 +53,19 @@ export class MovieAPI {
       alert("Error getting Credit");
     }
   }
+
+  static async getDirector(id) {
+    try {
+      const res = await axios.get(
+        `${BASE_URL}movie/${id}/credits?api_key=${process.env.REACT_APP_API_KEY_PARAM}`
+      );
+
+      const director = res.data.crew.find(
+        (member) => member.job === "Director"
+      );
+      return director;
+    } catch (error) {
+      alert("Error getting Credit");
+    }
+  }
 }

@@ -98,7 +98,6 @@ export function App() {
   }
 
   async function getMovieOrTVShowById(id, type) {
-    console.log(id, type);
     if (type === "movie") {
       const movie = await MovieAPI.getMovieById(id);
       if (movie) {
@@ -116,7 +115,6 @@ export function App() {
   }
 
   async function getPersonById(id) {
-    console.log(id);
     const person = await PersonAPI.getPersonById(id);
     if (person) {
       console.log("person clicked : ", person);
@@ -146,10 +144,6 @@ export function App() {
       getTVShowCast(currentRecord.id);
     }
   }, [currentRecord, currentRecordType]);
-
-  // console.log("*** credits", creditList);
-  // console.log("***  cast", castList);
-  console.log("*** suggestions", suggestions);
 
   function getBackgroundImage() {
     if (currentRecord && currentRecordType === "person") {
