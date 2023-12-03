@@ -21,7 +21,8 @@ export function App() {
   const [currentRecord, setCurrentRecord] = useState();
   const [currentRecordType, setCurrentRecordType] = useState();
   const [searchType, setSearchType] = useState("person");
-  const [creditList, setCreditList] = useState([]);
+  const [creditAsActorList, setCreditAsActorList] = useState([]);
+  const [creditAsDirectorList, setCreditAsDirectorList] = useState([]);
   const [castList, setCastList] = useState([]);
   const [suggestions, setSuggestions] = useState([]);
 
@@ -76,10 +77,17 @@ export function App() {
     }
   }
 
-  async function getCredits(id) {
-    const credits = await PersonAPI.fetchCreditsById(id);
+  async function getCreditsAsActor(id) {
+    const credits = await PersonAPI.fetchCreditsAsActorById(id);
     if (credits.length > 0) {
-      setCreditList(credits);
+      setCreditAsActorList(credits);
+    }
+  }
+
+  async function getCreditsAsDirector(id) {
+    const credits = await PersonAPI.fetchCreditsAsDirectorById(id);
+    if (credits.length > 0) {
+      setCreditAsDirectorList(credits);
     }
   }
 
@@ -117,7 +125,6 @@ export function App() {
   async function getPersonById(id) {
     const person = await PersonAPI.getPersonById(id);
     if (person) {
-      console.log("person clicked : ", person);
       setCurrentRecord(person);
       setCurrentRecordType("person");
     }
@@ -129,7 +136,13 @@ export function App() {
 
   useEffect(() => {
     if (currentRecord && currentRecordType === "person") {
-      getCredits(currentRecord.id);
+      getCreditsAsActor(currentRecord.id);
+    }
+  }, [currentRecord, currentRecordType]);
+
+  useEffect(() => {
+    if (currentRecord && currentRecordType === "person") {
+      getCreditsAsDirector(currentRecord.id);
     }
   }, [currentRecord, currentRecordType]);
 
@@ -156,6 +169,8 @@ export function App() {
       return "black";
     }
   }
+
+  console.log("sugg", suggestions);
 
   return (
     <>
@@ -214,28 +229,40 @@ export function App() {
             <PersonDetail record={currentRecord} />
           )}
           {currentRecord && currentRecordType === "movie" && (
-            <MovieDetail record={currentRecord} />
+            <MovieDetail record={currentRecord} onClick={getPersonById} />
           )}
           {currentRecord && currentRecordType === "tv" && (
             <TVShowDetail record={currentRecord} />
           )}
         </div>
+
         <div className={s.list}>
-          {creditList && currentRecordType === "person" && (
+          {creditAsActorList.length > 0 && currentRecordType === "person" && (
             <CreditList
-              creditList={creditList}
+              creditList={creditAsActorList}
               currentRecord={currentRecord}
               onClickItem={getMovieOrTVShowById}
+              type="acting"
             />
           )}
-          {creditList && currentRecordType === "movie" && (
+          {creditAsDirectorList.length > 0 &&
+            currentRecordType === "person" && (
+              <CreditList
+                creditList={creditAsDirectorList}
+                currentRecord={currentRecord}
+                onClickItem={getMovieOrTVShowById}
+                type="directing"
+              />
+            )}
+
+          {creditAsActorList && currentRecordType === "movie" && (
             <CastList
               castList={castList}
               currentRecordType={currentRecordType}
               onClickItem={getPersonById}
             />
           )}
-          {creditList && currentRecordType === "tv" && (
+          {creditAsActorList && currentRecordType === "tv" && (
             <CastList
               castList={castList}
               currentRecordType={currentRecordType}

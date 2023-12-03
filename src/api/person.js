@@ -58,13 +58,28 @@ export class PersonAPI {
     }
   }
 
-  static async fetchCreditsById(id) {
+  static async fetchCreditsAsActorById(id) {
     try {
       const res = await axios.get(
         `${BASE_URL}person/${id}/combined_credits?api_key=${process.env.REACT_APP_API_KEY_PARAM}`
       );
 
       const top30Credits = res.data.cast.slice(0, 30);
+      return top30Credits;
+    } catch (error) {
+      alert("Error getting Credit");
+    }
+  }
+
+  static async fetchCreditsAsDirectorById(id) {
+    try {
+      const res = await axios.get(
+        `${BASE_URL}person/${id}/combined_credits?api_key=${process.env.REACT_APP_API_KEY_PARAM}`
+      );
+
+      const top30Credits = res.data.crew
+        .filter((member) => member.job === "Director")
+        .slice(0, 30);
       return top30Credits;
     } catch (error) {
       alert("Error getting Credit");

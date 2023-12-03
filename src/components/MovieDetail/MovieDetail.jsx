@@ -4,7 +4,7 @@ import { MovieAPI } from "../../api/movie";
 import { SMALL_IMAGE_BASE_URL } from "../../config";
 import no_photo from "../../assets/images/no-photo.png";
 
-export function MovieDetail({ record }) {
+export function MovieDetail({ record, onClick }) {
   const [director, setDirector] = useState();
 
   async function getDirector(id) {
@@ -44,7 +44,7 @@ export function MovieDetail({ record }) {
         <>
           <p> Directed by : </p>
 
-          <div className={s.director}>
+          <div className={s.director} onClick={() => onClick(director.id)}>
             <img
               className={s.director_photo}
               src={getPhoto()}

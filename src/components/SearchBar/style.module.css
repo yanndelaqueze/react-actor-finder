@@ -2,7 +2,7 @@
   position: absolute;
   margin-top: 15px;
   margin-left: 10px;
-  color: #e1b34b;
+  color: white;
 }
 
 .input {
@@ -19,7 +19,7 @@
 }
 
 .input::placeholder {
-  color: #e1b34b;
+  color: white;
 }
 
 .input:focus {

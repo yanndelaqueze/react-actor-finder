@@ -3,7 +3,7 @@ import { SMALL_IMAGE_BASE_URL } from "../../config";
 import { Film, Tv } from "react-bootstrap-icons";
 import no_image from "../../assets/images/no-image.jpeg";
 
-export function CreditListItem({ credit, onClick }) {
+export function CreditListItem({ credit, onClick, type }) {
   function getLogo() {
     if (credit.media_type === "movie") {
       return <Film />;
@@ -55,7 +55,9 @@ export function CreditListItem({ credit, onClick }) {
         </div>
         <div className={s.logo}>{getLogo()}</div>
       </div>
-      <div className={s.character}>as: {credit.character}</div>
+      {type === "acting" && (
+        <div className={s.character}>as: {credit.character}</div>
+      )}
     </>
   );
 }
