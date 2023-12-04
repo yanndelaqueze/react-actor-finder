@@ -196,7 +196,7 @@ export function App() {
         <div className={s.header}>
           <div className="row">
             <div className="col-4">
-              <Logo title="ActorFindr" subtitle="" image={logo} />
+              <Logo title="ActorFinder" subtitle="" image={logo} />
             </div>
             <div className="col-md-12 col-lg-2">
               <SearchSelector
