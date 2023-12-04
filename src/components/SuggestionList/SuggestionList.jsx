@@ -7,7 +7,7 @@ export function SuggestionList({ suggestionList, searchType }) {
       <div className={s.list}>
         {suggestionList.map((suggestion, i) => {
           return (
-            <span key={suggestion.name + i} className={s.suggestion_list_item}>
+            <span key={suggestion.id + i} className={s.suggestion_list_item}>
               <SuggestionListItem
                 suggestion={suggestion}
                 searchType={searchType}

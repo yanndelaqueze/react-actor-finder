@@ -53,6 +53,7 @@ export function App() {
   async function getMovieSuggestions(input) {
     const suggestions = await MovieAPI.getMovieSuggestions(input);
     if (suggestions && suggestions.length > 0) {
+      setInput(input);
       setSuggestions(suggestions);
     }
   }
@@ -68,6 +69,7 @@ export function App() {
   async function getTVShowSuggestions(input) {
     const suggestions = await TVAPI.getTVShowSuggestions(input);
     if (suggestions && suggestions.length > 0) {
+      setInput(input);
       setSuggestions(suggestions);
     }
   }
@@ -174,7 +176,6 @@ export function App() {
   }
 
   console.log(suggestions, input);
-  console.log(suggestions.length, input.length);
 
   return (
     <>
@@ -211,26 +212,29 @@ export function App() {
                     onInput={getPersonSuggestions}
                   />
                 )}
+                {searchType === "movie" && (
+                  <SearchBar
+                    className="col-md-12 col-lg-6"
+                    searchType={searchType}
+                    onSubmit={searchMovie}
+                    onInput={getMovieSuggestions}
+                  />
+                )}
+                {searchType === "tv" && (
+                  <SearchBar
+                    className="col-md-12 col-lg-6"
+                    searchType={searchType}
+                    onSubmit={searchTVShow}
+                    onInput={getTVShowSuggestions}
+                  />
+                )}
                 {suggestions && input.length > 1 && (
-                  <SuggestionList suggestionList={suggestions} />
+                  <SuggestionList
+                    suggestionList={suggestions}
+                    searchType={searchType}
+                  />
                 )}
               </div>
-              {searchType === "movie" && (
-                <SearchBar
-                  className="col-md-12 col-lg-6"
-                  searchType={searchType}
-                  onSubmit={searchMovie}
-                  onInput={getMovieSuggestions}
-                />
-              )}
-              {searchType === "tv" && (
-                <SearchBar
-                  className="col-md-12 col-lg-6"
-                  searchType={searchType}
-                  onSubmit={searchTVShow}
-                  onInput={getTVShowSuggestions}
-                />
-              )}
             </div>
           </div>
         </div>
