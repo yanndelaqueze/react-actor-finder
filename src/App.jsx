@@ -297,23 +297,28 @@ export function App() {
             </>
           )}
 
-          {creditAsActorList.length > 0 && currentRecordType === "person" && (
-            <CreditList
-              creditList={creditAsDirectorList}
-              currentRecord={currentRecord}
-              onClickItem={getMovieOrTVShowById}
-              type="directing"
-            />
+          {currentRecord && currentRecord.known_for_department !== "Acting" && (
+            <>
+              {creditAsActorList.length > 0 &&
+                currentRecordType === "person" && (
+                  <CreditList
+                    creditList={creditAsDirectorList}
+                    currentRecord={currentRecord}
+                    onClickItem={getMovieOrTVShowById}
+                    type="directing"
+                  />
+                )}
+              {creditAsDirectorList.length > 0 &&
+                currentRecordType === "person" && (
+                  <CreditList
+                    creditList={creditAsActorList}
+                    currentRecord={currentRecord}
+                    onClickItem={getMovieOrTVShowById}
+                    type="acting"
+                  />
+                )}
+            </>
           )}
-          {creditAsDirectorList.length > 0 &&
-            currentRecordType === "person" && (
-              <CreditList
-                creditList={creditAsActorList}
-                currentRecord={currentRecord}
-                onClickItem={getMovieOrTVShowById}
-                type="acting"
-              />
-            )}
 
           {creditAsActorList && currentRecordType === "movie" && (
             <CastList
