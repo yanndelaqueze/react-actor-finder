@@ -25,6 +25,7 @@ export function App() {
   const [creditAsActorList, setCreditAsActorList] = useState([]);
   const [creditAsDirectorList, setCreditAsDirectorList] = useState([]);
   const [castList, setCastList] = useState([]);
+  const [input, setInput] = useState("");
   const [suggestions, setSuggestions] = useState([]);
 
   async function fetchTrendingPeople() {
@@ -35,7 +36,8 @@ export function App() {
 
   async function getPersonSuggestions(input) {
     const suggestions = await PersonAPI.getPersonSuggestions(input);
-    if (suggestions.length > 0) {
+    if (suggestions && suggestions.length > 0) {
+      setInput(input);
       setSuggestions(suggestions);
     }
   }
@@ -50,7 +52,7 @@ export function App() {
 
   async function getMovieSuggestions(input) {
     const suggestions = await MovieAPI.getMovieSuggestions(input);
-    if (suggestions.length > 0) {
+    if (suggestions && suggestions.length > 0) {
       setSuggestions(suggestions);
     }
   }
@@ -65,7 +67,7 @@ export function App() {
 
   async function getTVShowSuggestions(input) {
     const suggestions = await TVAPI.getTVShowSuggestions(input);
-    if (suggestions.length > 0) {
+    if (suggestions && suggestions.length > 0) {
       setSuggestions(suggestions);
     }
   }
@@ -171,7 +173,8 @@ export function App() {
     }
   }
 
-  console.log("sugg", suggestions);
+  console.log(suggestions, input);
+  console.log(suggestions.length, input.length);
 
   return (
     <>
@@ -208,7 +211,7 @@ export function App() {
                     onInput={getPersonSuggestions}
                   />
                 )}
-                {suggestions.length > 0 && (
+                {suggestions && input.length > 1 && (
                   <SuggestionList suggestionList={suggestions} />
                 )}
               </div>

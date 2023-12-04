@@ -8,7 +8,11 @@ export class TVAPI {
         `${BASE_URL}search/tv?api_key=${process.env.REACT_APP_API_KEY_PARAM}&query=${input}`
       );
 
-      return res.data.results.slice(0, 10);
+      if (res.data.results.length === 0) {
+        return;
+      } else {
+        return res.data.results.slice(0, 10);
+      }
     } catch (error) {
       alert("Error searching TV Show");
     }

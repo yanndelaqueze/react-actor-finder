@@ -24,14 +24,12 @@ export function SearchBar({ searchType, onSubmit, onInput }) {
 
   function submit(e) {
     if (e.key === "Enter" && e.target.value.trim() !== "") {
-      console.log(e.target.value);
       onSubmit(e.target.value);
       setInputValue("");
     }
   }
 
   function getInput(e) {
-    console.log(e.target.value);
     setInputValue(e.target.value);
     onInput(e.target.value);
   }
