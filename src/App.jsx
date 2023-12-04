@@ -103,6 +103,8 @@ export function App() {
     const credits = await PersonAPI.fetchCreditsAsDirectorById(id);
     if (credits.length > 0) {
       setCreditAsDirectorList(credits);
+    } else {
+      setCreditAsDirectorList([]);
     }
   }
 
