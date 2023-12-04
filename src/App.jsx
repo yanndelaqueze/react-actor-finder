@@ -1,5 +1,5 @@
 import s from "./style.module.css";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 // BOOTSTRAP ICONS
 
 import { PersonAPI } from "./api/person";
@@ -29,12 +29,30 @@ export function App() {
   const [suggestions, setSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
 
+  const suggestionsRef = useRef(null);
+
   // INITIALIZE APP with Top Trending Person //
   async function fetchTrendingPeople() {
     const trending = await PersonAPI.fetchTrendingPeople();
     setCurrentRecord(trending);
     setCurrentRecordType("person");
   }
+
+  function handleClickOutside(event) {
+    if (
+      suggestionsRef.current &&
+      !suggestionsRef.current.contains(event.target)
+    ) {
+      setShowSuggestions(false);
+    }
+  }
+
+  useEffect(() => {
+    document.addEventListener("click", handleClickOutside);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
 
   // SEARCH FUNCTIONS //
 
@@ -255,31 +273,39 @@ export function App() {
                     onInput={getTVShowSuggestions}
                   />
                 )}
-                {showSuggestions &&
-                  input.length > 1 &&
-                  searchType === "person" && (
-                    <SuggestionList
-                      suggestionList={suggestions}
-                      searchType={searchType}
-                      onClickItem={searchPerson}
-                    />
-                  )}
-                {showSuggestions &&
-                  input.length > 1 &&
-                  searchType === "movie" && (
-                    <SuggestionList
-                      suggestionList={suggestions}
-                      searchType={searchType}
-                      onClickItem={searchMovie}
-                    />
-                  )}
-                {showSuggestions && input.length > 1 && searchType === "tv" && (
-                  <SuggestionList
-                    suggestionList={suggestions}
-                    searchType={searchType}
-                    onClickItem={searchTVShow}
-                  />
-                )}
+                <div ref={suggestionsRef}>
+                  {showSuggestions &&
+                    input.length > 1 &&
+                    searchType === "person" && (
+                      <SuggestionList
+                        suggestionList={suggestions}
+                        searchType={searchType}
+                        onClickItem={searchPerson}
+                      />
+                    )}
+                </div>
+                <div ref={suggestionsRef}>
+                  {showSuggestions &&
+                    input.length > 1 &&
+                    searchType === "movie" && (
+                      <SuggestionList
+                        suggestionList={suggestions}
+                        searchType={searchType}
+                        onClickItem={searchMovie}
+                      />
+                    )}
+                </div>
+                <div ref={suggestionsRef}>
+                  {showSuggestions &&
+                    input.length > 1 &&
+                    searchType === "tv" && (
+                      <SuggestionList
+                        suggestionList={suggestions}
+                        searchType={searchType}
+                        onClickItem={searchTVShow}
+                      />
+                    )}
+                </div>
               </div>
             </div>
           </div>

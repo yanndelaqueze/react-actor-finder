@@ -16,9 +16,9 @@ export function CastList({ castList, currentRecordType, onClickItem }) {
         In this {getRecordType()}, you may have seen
       </div>
       <div className={s.list}>
-        {castList.map((castMember) => {
+        {castList.map((castMember, i) => {
           return (
-            <span key={castMember.id} className={s.cast_member}>
+            <span key={castMember.id + i} className={s.cast_member}>
               <CastListItem castMember={castMember} onClick={onClickItem} />
             </span>
           );
