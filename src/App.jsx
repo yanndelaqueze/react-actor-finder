@@ -274,21 +274,44 @@ export function App() {
         </div>
 
         <div className={s.list}>
+          {currentRecord && currentRecord.known_for_department === "Acting" && (
+            <>
+              {creditAsActorList.length > 0 &&
+                currentRecordType === "person" && (
+                  <CreditList
+                    creditList={creditAsActorList}
+                    currentRecord={currentRecord}
+                    onClickItem={getMovieOrTVShowById}
+                    type="acting"
+                  />
+                )}
+              {creditAsDirectorList.length > 0 &&
+                currentRecordType === "person" && (
+                  <CreditList
+                    creditList={creditAsDirectorList}
+                    currentRecord={currentRecord}
+                    onClickItem={getMovieOrTVShowById}
+                    type="directing"
+                  />
+                )}
+            </>
+          )}
+
           {creditAsActorList.length > 0 && currentRecordType === "person" && (
             <CreditList
-              creditList={creditAsActorList}
+              creditList={creditAsDirectorList}
               currentRecord={currentRecord}
               onClickItem={getMovieOrTVShowById}
-              type="acting"
+              type="directing"
             />
           )}
           {creditAsDirectorList.length > 0 &&
             currentRecordType === "person" && (
               <CreditList
-                creditList={creditAsDirectorList}
+                creditList={creditAsActorList}
                 currentRecord={currentRecord}
                 onClickItem={getMovieOrTVShowById}
-                type="directing"
+                type="acting"
               />
             )}
 
