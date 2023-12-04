@@ -236,6 +236,7 @@ export function App() {
                     searchType={searchType}
                     onSubmit={searchPerson}
                     onInput={getPersonSuggestions}
+                    input={input}
                   />
                 )}
                 {searchType === "movie" && (
