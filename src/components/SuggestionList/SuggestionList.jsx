@@ -1,7 +1,7 @@
 import s from "./style.module.css";
 import { SuggestionListItem } from "../../components/SuggestionListItem/SuggestionListItem";
 
-export function SuggestionList({ suggestionList, searchType }) {
+export function SuggestionList({ suggestionList, searchType, onClickItem }) {
   return (
     <>
       <div className={s.list}>
@@ -11,6 +11,7 @@ export function SuggestionList({ suggestionList, searchType }) {
               <SuggestionListItem
                 suggestion={suggestion}
                 searchType={searchType}
+                onClick={onClickItem}
               />
             </span>
           );

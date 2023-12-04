@@ -27,6 +27,7 @@ export function App() {
   const [castList, setCastList] = useState([]);
   const [input, setInput] = useState("");
   const [suggestions, setSuggestions] = useState([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
 
   async function fetchTrendingPeople() {
     const trending = await PersonAPI.fetchTrendingPeople();
@@ -39,6 +40,7 @@ export function App() {
     if (suggestions && suggestions.length > 0) {
       setInput(input);
       setSuggestions(suggestions);
+      setShowSuggestions(true);
     }
   }
 
@@ -47,6 +49,8 @@ export function App() {
     if (searchResponse) {
       setCurrentRecord(searchResponse);
       setCurrentRecordType("person");
+      setShowSuggestions(false);
+      setInput("");
     }
   }
 
@@ -55,6 +59,7 @@ export function App() {
     if (suggestions && suggestions.length > 0) {
       setInput(input);
       setSuggestions(suggestions);
+      setShowSuggestions(true);
     }
   }
 
@@ -63,6 +68,8 @@ export function App() {
     if (searchResponse) {
       setCurrentRecord(searchResponse);
       setCurrentRecordType("movie");
+      setShowSuggestions(false);
+      setInput("");
     }
   }
 
@@ -71,6 +78,7 @@ export function App() {
     if (suggestions && suggestions.length > 0) {
       setInput(input);
       setSuggestions(suggestions);
+      setShowSuggestions(true);
     }
   }
 
@@ -79,6 +87,8 @@ export function App() {
     if (searchResponse) {
       setCurrentRecord(searchResponse);
       setCurrentRecordType("tv");
+      setShowSuggestions(false);
+      setInput("");
     }
   }
 
@@ -135,6 +145,11 @@ export function App() {
     }
   }
 
+  // async function selectSuggestion(choice) {
+  //   setShowSuggestions(false);
+  //   setSelectedSuggestion(choice);
+  // }
+
   useEffect(() => {
     fetchTrendingPeople();
   }, []);
@@ -174,8 +189,6 @@ export function App() {
       return "black";
     }
   }
-
-  console.log(suggestions, input);
 
   return (
     <>
@@ -228,10 +241,29 @@ export function App() {
                     onInput={getTVShowSuggestions}
                   />
                 )}
-                {suggestions && input.length > 1 && (
+                {showSuggestions &&
+                  input.length > 1 &&
+                  searchType === "person" && (
+                    <SuggestionList
+                      suggestionList={suggestions}
+                      searchType={searchType}
+                      onClickItem={searchPerson}
+                    />
+                  )}
+                {showSuggestions &&
+                  input.length > 1 &&
+                  searchType === "movie" && (
+                    <SuggestionList
+                      suggestionList={suggestions}
+                      searchType={searchType}
+                      onClickItem={searchMovie}
+                    />
+                  )}
+                {showSuggestions && input.length > 1 && searchType === "tv" && (
                   <SuggestionList
                     suggestionList={suggestions}
                     searchType={searchType}
+                    onClickItem={searchTVShow}
                   />
                 )}
               </div>
