@@ -204,6 +204,9 @@ export function App() {
     }
   }
 
+  console.log("show Sugg:", showSuggestions);
+  console.log("input", input);
+
   return (
     <>
       <div

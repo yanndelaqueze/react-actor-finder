@@ -26,7 +26,13 @@ export class PersonAPI {
       if (res.data.results.length === 0) {
         return;
       } else {
-        return res.data.results.slice(0, 10);
+        return res.data.results
+          .filter((member) =>
+            ["Directing", "Acting", "Writing"].includes(
+              member.known_for_department
+            )
+          )
+          .slice(0, 10);
       }
     } catch (error) {
       alert("Error searching Person");
