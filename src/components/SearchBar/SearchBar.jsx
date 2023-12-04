@@ -2,8 +2,8 @@ import s from "./style.module.css";
 import { Search as SearchIcon } from "react-bootstrap-icons";
 import React, { useState } from "react";
 
-export function SearchBar({ searchType, onSubmit, onInput, input }) {
-  const [inputValue, setInputValue] = useState(input);
+export function SearchBar({ searchType, onSubmit, onInput }) {
+  const [inputValue, setInputValue] = useState("");
 
   let placeHolderText = "Search Actor/Actress";
 

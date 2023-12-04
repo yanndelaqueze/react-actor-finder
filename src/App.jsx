@@ -145,11 +145,6 @@ export function App() {
     }
   }
 
-  // async function selectSuggestion(choice) {
-  //   setShowSuggestions(false);
-  //   setSelectedSuggestion(choice);
-  // }
-
   useEffect(() => {
     fetchTrendingPeople();
   }, []);
@@ -201,11 +196,7 @@ export function App() {
         <div className={s.header}>
           <div className="row">
             <div className="col-4">
-              <Logo
-                title="ActorFindr"
-                subtitle="This face looks familiar..."
-                image={logo}
-              />
+              <Logo title="ActorFindr" subtitle="" image={logo} />
             </div>
             <div className="col-md-12 col-lg-2">
               <SearchSelector
