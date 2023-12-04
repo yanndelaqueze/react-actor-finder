@@ -29,20 +29,14 @@ export function App() {
   const [suggestions, setSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
 
+  // INITIALIZE APP with Top Trending Person //
   async function fetchTrendingPeople() {
     const trending = await PersonAPI.fetchTrendingPeople();
     setCurrentRecord(trending);
     setCurrentRecordType("person");
   }
 
-  async function getPersonSuggestions(input) {
-    const suggestions = await PersonAPI.getPersonSuggestions(input);
-    if (suggestions && suggestions.length > 0) {
-      setInput(input);
-      setSuggestions(suggestions);
-      setShowSuggestions(true);
-    }
-  }
+  // SEARCH FUNCTIONS //
 
   async function searchPerson(name) {
     const searchResponse = await PersonAPI.searchPersonByName(name);
@@ -51,15 +45,6 @@ export function App() {
       setCurrentRecordType("person");
       setShowSuggestions(false);
       setInput("");
-    }
-  }
-
-  async function getMovieSuggestions(input) {
-    const suggestions = await MovieAPI.getMovieSuggestions(input);
-    if (suggestions && suggestions.length > 0) {
-      setInput(input);
-      setSuggestions(suggestions);
-      setShowSuggestions(true);
     }
   }
 
@@ -73,15 +58,6 @@ export function App() {
     }
   }
 
-  async function getTVShowSuggestions(input) {
-    const suggestions = await TVAPI.getTVShowSuggestions(input);
-    if (suggestions && suggestions.length > 0) {
-      setInput(input);
-      setSuggestions(suggestions);
-      setShowSuggestions(true);
-    }
-  }
-
   async function searchTVShow(title) {
     const searchResponse = await TVAPI.searchTVShowByTitle(title);
     if (searchResponse) {
@@ -92,10 +68,43 @@ export function App() {
     }
   }
 
+  // GET SUGGESTION FOR AUTOCOMPLETE FEATURE //
+
+  async function getPersonSuggestions(input) {
+    const suggestions = await PersonAPI.getPersonSuggestions(input);
+    if (suggestions && suggestions.length > 0) {
+      setInput(input);
+      setSuggestions(suggestions);
+      setShowSuggestions(true);
+    }
+  }
+
+  async function getMovieSuggestions(input) {
+    const suggestions = await MovieAPI.getMovieSuggestions(input);
+    if (suggestions && suggestions.length > 0) {
+      setInput(input);
+      setSuggestions(suggestions);
+      setShowSuggestions(true);
+    }
+  }
+
+  async function getTVShowSuggestions(input) {
+    const suggestions = await TVAPI.getTVShowSuggestions(input);
+    if (suggestions && suggestions.length > 0) {
+      setInput(input);
+      setSuggestions(suggestions);
+      setShowSuggestions(true);
+    }
+  }
+
+  // GET CREDITS FOR A PERSON //
+
   async function getCreditsAsActor(id) {
     const credits = await PersonAPI.fetchCreditsAsActorById(id);
     if (credits.length > 0) {
       setCreditAsActorList(credits);
+    } else {
+      setCreditAsActorList([]);
     }
   }
 
@@ -108,6 +117,8 @@ export function App() {
     }
   }
 
+  // GET CAST FOR MOVIE OR TV SHOW //
+
   async function getMovieCast(id) {
     const cast = await MovieAPI.fetchCastById(id);
     if (cast.length > 0) {
@@ -119,6 +130,16 @@ export function App() {
     const cast = await TVAPI.fetchCastById(id);
     if (cast.length > 0) {
       setCastList(cast);
+    }
+  }
+
+  // RETRIEVE RECORD (PERSON, MOVIE, TVSHOW) WITH THEIR ID //
+
+  async function getPersonById(id) {
+    const person = await PersonAPI.getPersonById(id);
+    if (person) {
+      setCurrentRecord(person);
+      setCurrentRecordType("person");
     }
   }
 
@@ -139,13 +160,7 @@ export function App() {
     }
   }
 
-  async function getPersonById(id) {
-    const person = await PersonAPI.getPersonById(id);
-    if (person) {
-      setCurrentRecord(person);
-      setCurrentRecordType("person");
-    }
-  }
+  // USE EFFECT //
 
   useEffect(() => {
     fetchTrendingPeople();
@@ -174,6 +189,8 @@ export function App() {
       getTVShowCast(currentRecord.id);
     }
   }, [currentRecord, currentRecordType]);
+
+  // DISPLAY FUNCTIONS //
 
   function getBackgroundImage() {
     if (currentRecord && currentRecordType === "person") {
