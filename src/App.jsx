@@ -223,6 +223,8 @@ export function App() {
     }
   }
 
+  console.log(currentRecord);
+
   return (
     <>
       <div

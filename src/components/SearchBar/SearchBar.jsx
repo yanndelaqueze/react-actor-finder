@@ -23,8 +23,8 @@ export function SearchBar({ searchType, onSubmit, onInput }) {
 
   function submit(e) {
     if (e.key === "Enter" && e.target.value.trim() !== "") {
-      onSubmit(e.target.value);
       setInputValue("");
+      onSubmit(e.target.value);
     }
   }
 

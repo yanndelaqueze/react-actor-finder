@@ -14,6 +14,15 @@
   font-size: 15px;
 }
 
+.details {
+  margin-top: 15px;
+  display: flex;
+}
+
+.poster {
+  height: 150px;
+}
+
 .director {
   font-family: Karla;
   font-weight: 400;
