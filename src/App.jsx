@@ -38,6 +38,7 @@ export function App() {
     setCurrentRecordType("person");
   }
 
+  // Hide Suggestions when clicked outside
   function handleClickOutside(event) {
     if (
       suggestionsRef.current &&
@@ -222,9 +223,6 @@ export function App() {
     }
   }
 
-  console.log("show Sugg:", showSuggestions);
-  console.log("input", input);
-
   return (
     <>
       <div
@@ -242,7 +240,7 @@ export function App() {
               <SearchSelector
                 className="col-md-12 col-lg-2"
                 onClickItem={setSearchType}
-                searchType={searchType}
+                value={searchType}
               />
             </div>
 

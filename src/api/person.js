@@ -72,7 +72,9 @@ export class PersonAPI {
         `${BASE_URL}person/${id}/combined_credits?api_key=${process.env.REACT_APP_API_KEY_PARAM}`
       );
 
-      const top30Credits = res.data.cast.slice(0, 30);
+      const top30Credits = res.data.cast
+        .sort((a, b) => b.vote_count - a.vote_count)
+        .slice(0, 30);
       return top30Credits;
     } catch (error) {
       alert("Error getting Credit");
@@ -87,6 +89,7 @@ export class PersonAPI {
 
       const top30Credits = res.data.crew
         .filter((member) => member.job === "Director")
+        .sort((a, b) => b.vote_count - a.vote_count)
         .slice(0, 30);
       return top30Credits;
     } catch (error) {
