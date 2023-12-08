@@ -51,7 +51,7 @@ export class TVAPI {
         `${BASE_URL}tv/${id}/credits?api_key=${process.env.REACT_APP_API_KEY_PARAM}`
       );
 
-      const top20Cast = res.data.cast.slice(0, 30);
+      const top20Cast = res.data.cast.slice(0, 50);
       return top20Cast;
     } catch (error) {
       alert("Error getting Credit");

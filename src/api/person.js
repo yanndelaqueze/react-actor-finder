@@ -74,7 +74,7 @@ export class PersonAPI {
 
       const top30Credits = res.data.cast
         .sort((a, b) => b.vote_count - a.vote_count)
-        .slice(0, 30);
+        .slice(0, 50);
       return top30Credits;
     } catch (error) {
       alert("Error getting Credit");
@@ -90,7 +90,7 @@ export class PersonAPI {
       const top30Credits = res.data.crew
         .filter((member) => member.job === "Director")
         .sort((a, b) => b.vote_count - a.vote_count)
-        .slice(0, 30);
+        .slice(0, 50);
       return top30Credits;
     } catch (error) {
       alert("Error getting Credit");
