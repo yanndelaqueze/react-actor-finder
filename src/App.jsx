@@ -223,8 +223,6 @@ export function App() {
     }
   }
 
-  console.log("input :", input);
-
   return (
     <>
       <div
