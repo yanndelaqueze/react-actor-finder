@@ -28,6 +28,7 @@ export function App() {
   const [input, setInput] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
+  const [clearInput, setClearInput] = useState(false);
 
   const suggestionsRef = useRef(null);
 
@@ -63,7 +64,7 @@ export function App() {
       setCurrentRecord(searchResponse);
       setCurrentRecordType("person");
       setShowSuggestions(false);
-      setInput("");
+      setClearInput(true);
     }
   }
 
@@ -223,7 +224,7 @@ export function App() {
     }
   }
 
-  console.log(currentRecord);
+  console.log("input :", input);
 
   return (
     <>
@@ -254,7 +255,7 @@ export function App() {
                     searchType={searchType}
                     onSubmit={searchPerson}
                     onInput={getPersonSuggestions}
-                    input={input}
+                    clearInput={clearInput}
                   />
                 )}
                 {searchType === "movie" && (
@@ -263,6 +264,7 @@ export function App() {
                     searchType={searchType}
                     onSubmit={searchMovie}
                     onInput={getMovieSuggestions}
+                    clearInput={clearInput}
                   />
                 )}
                 {searchType === "tv" && (
@@ -271,6 +273,7 @@ export function App() {
                     searchType={searchType}
                     onSubmit={searchTVShow}
                     onInput={getTVShowSuggestions}
+                    clearInput={clearInput}
                   />
                 )}
                 <div ref={suggestionsRef}>

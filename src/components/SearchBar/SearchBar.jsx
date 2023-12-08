@@ -2,7 +2,7 @@ import s from "./style.module.css";
 import { Search as SearchIcon } from "react-bootstrap-icons";
 import React, { useState, useEffect } from "react";
 
-export function SearchBar({ searchType, onSubmit, onInput }) {
+export function SearchBar({ searchType, onSubmit, onInput, clearInput }) {
   const [inputValue, setInputValue] = useState("");
 
   let placeHolderText = "Search Actor/Actress";
@@ -36,6 +36,13 @@ export function SearchBar({ searchType, onSubmit, onInput }) {
   useEffect(() => {
     setInputValue(inputValue);
   }, [inputValue]);
+
+  // Clear input value when clearInput prop changes
+  useEffect(() => {
+    if (clearInput) {
+      setInputValue("");
+    }
+  }, [clearInput]);
 
   return (
     <>
