@@ -237,7 +237,7 @@ export function App() {
         <div className={s.header}>
           <div className="row">
             <div className="col-4">
-              <Logo title="ActorFinder" subtitle="" image={logo} />
+              <Logo title="ActorFinder" subtitle="" />
             </div>
             <div className="col-md-12 col-lg-2">
               <SearchSelector
