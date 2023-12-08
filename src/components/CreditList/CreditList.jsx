@@ -24,9 +24,12 @@ export function CreditList({ creditList, currentRecord, onClickItem, type }) {
         <>
           <div className={s.title}>You may have seen {getGender()} in : </div>
           <div className={s.list}>
-            {creditList.map((credit) => {
+            {creditList.map((credit, i) => {
               return (
-                <span key={credit.id} className={s.credit_list_item}>
+                <span
+                  key={credit.id + "/" + credit.character}
+                  className={s.credit_list_item}
+                >
                   <CreditListItem
                     credit={credit}
                     onClick={onClickItem}
@@ -42,9 +45,9 @@ export function CreditList({ creditList, currentRecord, onClickItem, type }) {
         <>
           <div className={s.title}>{getGender2()} directed : </div>
           <div className={s.list}>
-            {creditList.map((credit) => {
+            {creditList.map((credit, i) => {
               return (
-                <span key={credit.id} className={s.credit_list_item}>
+                <span key={credit.id + i} className={s.credit_list_item}>
                   <CreditListItem
                     credit={credit}
                     onClick={onClickItem}

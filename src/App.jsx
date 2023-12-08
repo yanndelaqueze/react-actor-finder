@@ -16,7 +16,6 @@ import { CreditList } from "./components/CreditList/CreditList";
 import { CastList } from "./components/CastList/CastList";
 import { SuggestionList } from "./components/SuggestionList/SuggestionList";
 import { Logo } from "./components/Logo/Logo";
-import logo from "./assets/images/logo.png";
 
 export function App() {
   const [currentRecord, setCurrentRecord] = useState();
